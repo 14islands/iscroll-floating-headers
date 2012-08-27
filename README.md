@@ -13,25 +13,25 @@ Just like iScroll, the first element in the element will be scrolled.
 
 ```html
 <div id="myList">
-    <ul>
-    	<li class="header">C</li>
-      <li>Special Agent Dale Cooper</li>
-      <li class="header">J</li>
+		<ul>
+			<li class="header">C</li>
+			<li>Special Agent Dale Cooper</li>
+			<li class="header">J</li>
 			<li>Hank Jennings</li>
 			<li><li>Leo Johnson</li>
 			<li>Shelly Johnson</li>
-      <li class="header">H</li>
-      <li>Donna Hayward </li>
-      <li>Audrey Horne</li>
-      <li>Benjamin Horne</li>
-      <li>Big Ed Hurley</li>
-      <li class="header">P</li>
-      <li>Jocelyn Packard</li>
-      <li>Leland Palmer</li>
-    </ul>
-  </div>
+			<li class="header">H</li>
+			<li>Donna Hayward </li>
+			<li>Audrey Horne</li>
+			<li>Benjamin Horne</li>
+			<li>Big Ed Hurley</li>
+			<li class="header">P</li>
+			<li>Jocelyn Packard</li>
+			<li>Leland Palmer</li>
+		</ul>
+	</div>
 ```
 
 ```javascript
 new iscroll-floating-headers( document.getElementById('myList') )
-``
+```
