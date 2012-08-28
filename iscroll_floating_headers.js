@@ -45,7 +45,7 @@
         });
       });
       this.iscroll = new iScroll(this.el, {
-        hScroll: true,
+        hScroll: false,
         vScrollbar: false,
         hScrollbar: false,
         useTransition: false,
