@@ -68,7 +68,7 @@ class root.iScrollFloatingHeaders
 	_findHeaders: ->
 		# create sticky header
 		@$sticky  = $('<label class="sticky">')
-		@$el.after(@$sticky)
+		@$el.append(@$sticky)
 		@$headers = $('li.header', @$el)
 		@headerColor = @$headers.css('color')
 		@headerBackground = @$headers.css('background-color')
@@ -142,7 +142,7 @@ class root.iScrollFloatingHeaders
 
 	_enableQuickScroll: ->
 		@quickscroll = $('<sidebar>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Å Ä Ö</sidebar>')
-		@$el.after(@quickscroll)
+		@$el.append(@quickscroll)
 		@quickscroll.on('touchmove', (e) =>
 			e.stopPropagation()
 			e.preventDefault()
