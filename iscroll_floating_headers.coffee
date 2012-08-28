@@ -32,6 +32,7 @@ class root.iScrollFloatingHeaders
 
 		# init scroll
 		@iscroll = new iScroll(@el,
+			hScroll: true
 			vScrollbar: false
 			hScrollbar: false
 			useTransition: false #doesnt update Y-coordinate on every frame
