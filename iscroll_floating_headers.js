@@ -83,7 +83,7 @@
 
     iScrollFloatingHeaders.prototype._findHeaders = function() {
       this.$sticky = $('<label class="sticky">');
-      this.$el.after(this.$sticky);
+      this.$el.append(this.$sticky);
       this.$headers = $('li.header', this.$el);
       this.headerColor = this.$headers.css('color');
       this.headerBackground = this.$headers.css('background-color');
@@ -174,7 +174,7 @@
     iScrollFloatingHeaders.prototype._enableQuickScroll = function() {
       var _this = this;
       this.quickscroll = $('<sidebar>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Å Ä Ö</sidebar>');
-      this.$el.after(this.quickscroll);
+      this.$el.append(this.quickscroll);
       return this.quickscroll.on('touchmove', function(e) {
         var percentage, scrollPos;
         e.stopPropagation();
