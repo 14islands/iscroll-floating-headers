@@ -67,13 +67,13 @@ class root.iScrollFloatingHeaders
 
 
 	_findHeaders: ->
-		# create sticky header
-		@$sticky  = $('<label class="sticky">')
-		@$el.append(@$sticky)
-		@$headers = $('li.header', @$el)
+		@$headers = $('header', @$el)
 		@headerColor = @$headers.css('color')
 		@headerBackground = @$headers.css('background-color')
 		@headerHeight = @$headers.height() # height of headers
+		# create sticky header
+		@$sticky  = $('<header class="sticky">')
+		@$el.append(@$sticky)
 
 
 	# positions the sticky header and makes sure it shows correct text
@@ -81,12 +81,12 @@ class root.iScrollFloatingHeaders
 		if @sticky? and @headers.length > @sticky.i+1
 			nextHeader = @headers[@sticky.i+1]
 			delta = nextHeader.y + @y
-			
+
 			if delta > 0 and delta <= @headerHeight
 				@animating = true unless @animating
-				 
+				
 				nextHeader.$el.css('color', @headerColor)
-				@$sticky.css('-webkit-transform', 'translate3d(0, -'+(@headerHeight-delta-2)+'px, 0)')
+				@$sticky.css('-webkit-transform', 'translate3d(0, -'+(@headerHeight-delta-1)+'px, 0)')
 				
 				if delta <= @headerHeight * 0.25
 					if @iscroll.dirY > 0
@@ -107,21 +107,26 @@ class root.iScrollFloatingHeaders
 			@headers[0]?.$el.css('color', @headerColor)
 			setTimeout( =>
 				if @hidden
-					@$sticky.css('visibility', 'hidden')
+					#@$sticky.css('visibility', 'hidden')
+					@$sticky.css('-webkit-transform', 'translate3d(0, -1000px, 0)')
 					@_setStickyText( @headers[0]?.text )
 			, 10)
 			@hidden = true
 			@sticky = undefined
 
-		else if currentHeader isnt @sticky
+		else if currentHeader isnt @sticky 
+			
 			if @hidden
-				@$sticky.css('visibility', 'visible')
+				#@$sticky.css('visibility', 'visible')
+				@$sticky.css('-webkit-transform', 'none')
 				@hidden = false
-				
-			unless @animating
-				@_setStickyText(currentHeader?.text)
-				@sticky.$el.css('color', @headerColor) if @sticky?
-				
+			else
+				deltaPrev = @y + @sticky?.y
+				if deltaPrev > -2
+					unless @animating
+						@_setStickyText(currentHeader?.text)
+						@sticky.$el.css('color', @headerColor) if @sticky?
+					
 			@sticky = currentHeader
 			@sticky.$el.css('color', @headerBackground)
 			
@@ -136,9 +141,11 @@ class root.iScrollFloatingHeaders
 
 
 	_onScroll: =>
-		@y = @iscroll.y
-		@_updateHeaders()
 		requestAnimationFrame(@_onScroll, 0) if @scrolling
+		unless @iscroll.y is @y
+			@y = @iscroll.y
+			@_updateHeaders()
+		
 
 
 	_enableQuickScroll: ->

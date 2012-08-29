@@ -83,16 +83,16 @@
     };
 
     iScrollFloatingHeaders.prototype._findHeaders = function() {
-      this.$sticky = $('<label class="sticky">');
-      this.$el.append(this.$sticky);
-      this.$headers = $('li.header', this.$el);
+      this.$headers = $('header', this.$el);
       this.headerColor = this.$headers.css('color');
       this.headerBackground = this.$headers.css('background-color');
-      return this.headerHeight = this.$headers.height();
+      this.headerHeight = this.$headers.height();
+      this.$sticky = $('<header class="sticky">');
+      return this.$el.append(this.$sticky);
     };
 
     iScrollFloatingHeaders.prototype._updateHeaders = function() {
-      var currentHeader, delta, header, nextHeader, _i, _len, _ref, _ref1,
+      var currentHeader, delta, deltaPrev, header, nextHeader, _i, _len, _ref, _ref1, _ref2,
         _this = this;
       if ((this.sticky != null) && this.headers.length > this.sticky.i + 1) {
         nextHeader = this.headers[this.sticky.i + 1];
@@ -102,7 +102,7 @@
             this.animating = true;
           }
           nextHeader.$el.css('color', this.headerColor);
-          this.$sticky.css('-webkit-transform', 'translate3d(0, -' + (this.headerHeight - delta - 2) + 'px, 0)');
+          this.$sticky.css('-webkit-transform', 'translate3d(0, -' + (this.headerHeight - delta - 1) + 'px, 0)');
           if (delta <= this.headerHeight * 0.25) {
             if (this.iscroll.dirY > 0) {
               this._setStickyText(nextHeader.text);
@@ -132,7 +132,7 @@
         setTimeout(function() {
           var _ref2;
           if (_this.hidden) {
-            _this.$sticky.css('visibility', 'hidden');
+            _this.$sticky.css('-webkit-transform', 'translate3d(0, -1000px, 0)');
             return _this._setStickyText((_ref2 = _this.headers[0]) != null ? _ref2.text : void 0);
           }
         }, 10);
@@ -140,13 +140,17 @@
         return this.sticky = void 0;
       } else if (currentHeader !== this.sticky) {
         if (this.hidden) {
-          this.$sticky.css('visibility', 'visible');
+          this.$sticky.css('-webkit-transform', 'none');
           this.hidden = false;
-        }
-        if (!this.animating) {
-          this._setStickyText(currentHeader != null ? currentHeader.text : void 0);
-          if (this.sticky != null) {
-            this.sticky.$el.css('color', this.headerColor);
+        } else {
+          deltaPrev = this.y + ((_ref2 = this.sticky) != null ? _ref2.y : void 0);
+          if (deltaPrev > -2) {
+            if (!this.animating) {
+              this._setStickyText(currentHeader != null ? currentHeader.text : void 0);
+              if (this.sticky != null) {
+                this.sticky.$el.css('color', this.headerColor);
+              }
+            }
           }
         }
         this.sticky = currentHeader;
@@ -165,10 +169,12 @@
     };
 
     iScrollFloatingHeaders.prototype._onScroll = function() {
-      this.y = this.iscroll.y;
-      this._updateHeaders();
       if (this.scrolling) {
-        return requestAnimationFrame(this._onScroll, 0);
+        requestAnimationFrame(this._onScroll, 0);
+      }
+      if (this.iscroll.y !== this.y) {
+        this.y = this.iscroll.y;
+        return this._updateHeaders();
       }
     };
 

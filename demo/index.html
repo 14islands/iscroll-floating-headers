@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>14islands UITableView - floating section headers</title>  
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min.js"></script>
+	<script src="https://raw.github.com/cubiq/iscroll/master/src/iscroll.js"></script>
+	<script src="https://raw.github.com/gist/1579671/7f515ade253afbc860dac1f84e21998d54359d79/rAF.js"></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			font-family: Helvetica Neue;
+			margin: 0;
+			padding: 0;
+			font-size: 16px;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+		}
+	</style>
+
+	<link rel="stylesheet" href="../iscroll_floating_headers.css"/>
+	<script src="../iscroll_floating_headers.js"></script>
+	<script>
+		$(function () {
+		  var scrollEl = document.getElementById('mylist');
+		  new iScrollFloatingHeaders(scrollEl);
+		   
+		});  
+	</script>
+
+</head>
+<body>
+
+	<div id="mylist" class="i4-ui-list">
+		<ul>
+			<header>A</header>
+			<li>Andrew Packard (6 episodes, 1990-1991)</li>
+			<li>Annie Blackburn (6 episodes, 1991)</li>
+			<li>Asian Man / ... (2 episodes, 1990)</li>
+			<li>Asian Man / ... (5 episodes, 1990)</li>
+			<li>Audrey Horne (30 episodes, 1990-1991)</li>
+			<header>B</header>
+			<li>Bartender (2 episodes, 1991)</li>
+			<li>Benjamin Horne (30 episodes, 1990-1991)</li>
+			<li>Bernard Renault (2 episodes, 1990)</li>
+			<li>Betty Briggs (7 episodes, 1990-1991)</li>
+			<li>Big Ed Hurley (30 episodes, 1990-1991)</li>
+			<li>Blackie O'Reilly (7 episodes, 1990)</li>
+			<li>Bobby Briggs (30 episodes, 1990-1991)</li>
+			<li>Bob / ... (11 episodes, 1990-1991)</li>
+			<header>C</header>
+			<li>Cappy (2 episodes, 1990-1991)</li>
+			<li>Caroline / ... (2 episodes, 1991)</li>
+			<li>Catherine Martell / ... (27 episodes, 1990-1991)</li>
+			<li>Chet (segment 'Invitation To Love') (5 episodes, 1990)</li>
+			<li>Coach Wingate (2 episodes, 1990-1991)</li>
+			<header>D</header>
+			<li>D.A. Daryl Lodwick (2 episodes, 1990)</li>
+			<li>DEA Agent Dennis / ... (3 episodes, 1990-1991)</li>
+			<li>Deputy Andy Brennan (26 episodes, 1990-1991)</li>
+			<li>Deputy Tommy 'Hawk' Hill (28 episodes, 1990-1991)</li>
+			<li>Dick Tremayne (11 episodes, 1990-1991)</li>
+			<li>Donna Hayward (30 episodes, 1990-1991)</li>
+			<li>Dougie Milford (3 episodes, 1990-1991)</li>
+			<li>Dr. Jacoby / ... (16 episodes, 1990-1991)</li>
+			<li>Dr. Will Hayward (30 episodes, 1990-1991)</li>
+			<header>E</header>
+			<li>Eileen Hayward (11 episodes, 1990-1991)</li>
+			<li>Einar Thorson (3 episodes, 1990)</li>
+			<li>Emerald (segment 'Invitation To Love') / ... (3 episodes, 1990)</li>
+			<li>Emory Battis (5 episodes, 1990)</li>
+			<li>Ernie Niles (5 episodes, 1990-1991)</li>
+			<li>Evelyn Marsh (5 episodes, 1990-1991)</li>
+			<header>F</header>
+			<li>FBI Agent Albert Rosenfield (8 episodes, 1990-1991)</li>
+			<li>FBI Agent Roger Hardy (2 episodes, 1990)</li>
+			<li>FBI Regional Bureau Chief Gordon Cole (6 episodes, 1990-1991)</li>
+			<header>G</header>
+			<li>Giant / ... (5 episodes, 1990-1991)</li>
+			<li>Girl Singer / ... (2 episodes, 1990)</li>
+			<header>H</header>
+			<li>Hank Jennings (13 episodes, 1990-1991)</li>
+			<li>Harold Smith (4 episodes, 1990)</li>
+			<li>Harriet Hayward (2 episodes, 1990)</li>
+			<li>Heavy Metal Youth (2 episodes, 1991)</li>
+			<li>Heba (2 episodes, 1990)</li>
+			<li>Heidi (2 episodes, 1990-1991)</li>
+			<header>J</header>
+			<li>Jacques Renault (3 episodes, 1990)</li>
+			<li>James Hurley (30 episodes, 1990-1991)</li>
+			<li>Jared (segment 'Invitation To Love') (3 episodes, 1990)</li>
+			<li>Jean Renault (5 episodes, 1990-1991)</li>
+			<li>Jeffrey Marsh (2 episodes, 1991)</li>
+			<li>Jenny (2 episodes, 1990)</li>
+			<li>Jerry Horne (9 episodes, 1990-1991)</li>
+			<li>Jocelyn Packard (30 episodes, 1990-1991)</li>
+			<li>Joey / ... (3 episodes, 1990)</li>
+			<li>John Justice Wheeler (5 episodes, 1991)</li>
+			<li>Johnny Horne / ... (4 episodes, 1990-1991)</li>
+			<li>Jones (4 episodes, 1991)</li>
+			<li>Judge Clinton Sternwood (2 episodes, 1990)</li>
+			<header>L</header>
+			<li>Lana Budding Milford (6 episodes, 1990-1991)</li>
+			<li>Leland Palmer (18 episodes, 1990-1991)</li>
+			<li>Leo Johnson (24 episodes, 1990-1991)</li>
+			<li>Log Lady / ... (12 episodes, 1990-1991)</li>
+			<li>Lucy Moran (29 episodes, 1990-1991)</li>
+			<header>M</header>
+			<li>Madeleine 'Maddy' Ferguson / ... (18 episodes, 1990-1991)</li>
+			<li>Major Garland Briggs (16 episodes, 1990-1991)</li>
+			<li>Malcolm Sloan (3 episodes, 1991)</li>
+			<li>Man From Another Place / ... (4 episodes, 1990-1991)</li>
+			<li>Mayor Dwayne Milford / ... (8 episodes, 1990-1991)</li>
+			<li>Mike Nelson (13 episodes, 1990-1991)</li>
+			<li>Montana (segment 'Invitation To Love') / ... (4 episodes, 1990)</li>
+			<header>N</header>
+			<li>Nadine Hurley (22 episodes, 1990-1991)</li>
+			<li>Nancy / ... (3 episodes, 1990)</li>
+			<li>New Girl at One Eyed Jacks (2 episodes, 1990)</li>
+			<li>Nicky (2 episodes, 1990-1991)</li>
+			<li>Norma Jennings (30 episodes, 1990-1991)</li>
+			<header>P</header>
+			<li>Pete Martell (30 episodes, 1990-1991)</li>
+			<li>Phillip Michael Gerard / ... (10 episodes, 1990)</li>
+			<header>R</header>
+			<li>RCMP Officer Preston King (2 episodes, 1990-1991)</li>
+			<li>Randy St. Croix (5 episodes, 1991)</li>
+			<li>Rev. Clarence Brocklehurst (2 episodes, 1990)</li>
+			<li>Ronette Pulaski / ... (5 episodes, 1990-1991)</li>
+			<header>S</header>
+			<li>Sarah Palmer (13 episodes, 1990-1991)</li>
+			<li>Shelly Johnson (30 episodes, 1990-1991)</li>
+			<li>Sheriff Harry S. Truman (30 episodes, 1990-1991)</li>
+			<li>Sheriff's Deputy (2 episodes, 1990)</li>
+			<li>Sid (2 episodes, 1990)</li>
+			<li>Special Agent Dale Cooper (30 episodes, 1990-1991)</li>
+			<li>Sylvia Horne (4 episodes, 1990-1991)</li>
+			<header>T</header>
+			<li>The Dead Man (2 episodes, 1991)</li>
+			<li>Thomas Eckhardt (3 episodes, 1991)</li>
+			<li>Tim Pinkle (3 episodes, 1990-1991)</li>
+			<li>Toad (4 episodes, 1990-1991)</li>
+			<li>Trudy / ... (7 episodes, 1990-1991)</li>
+			<header>V</header>
+			<li>Vivian Smythe Niles (3 episodes, 1990)</li>
+			<header>W</header>
+			<li>Waiter (4 episodes, 1990-1991)</li>
+			<li>Wilson Mooney (2 episodes, 1990)</li>
+			<li>Windom Earle (10 episodes, 1990-1991)</li>
+		</ul>
+	</div>
+
+</body>
+</html>
