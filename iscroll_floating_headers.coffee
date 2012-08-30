@@ -118,17 +118,19 @@ class root.iScrollFloatingHeaders
 			
 			if @hidden
 				#@$sticky.css('visibility', 'visible')
+				currentHeader.$el.css('color', @headerBackground)
 				@$sticky.css('-webkit-transform', 'none')
 				@hidden = false
 			else
-				deltaPrev = @y + @sticky?.y
-				if deltaPrev > -2
-					unless @animating
-						@_setStickyText(currentHeader?.text)
-						@sticky.$el.css('color', @headerColor) if @sticky?
-					
+				currentHeader.$el.css('color', @headerBackground)
+				#deltaPrev = @y + @sticky?.y
+				#if deltaPrev > -2
+				#	unless @animating
+				@_setStickyText(currentHeader?.text)
+
+			@sticky?.$el.css('color', @headerColor)
 			@sticky = currentHeader
-			@sticky.$el.css('color', @headerBackground)
+			
 			
 
 	# caches updates to the DOM

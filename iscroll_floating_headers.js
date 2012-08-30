@@ -92,7 +92,7 @@
     };
 
     iScrollFloatingHeaders.prototype._updateHeaders = function() {
-      var currentHeader, delta, deltaPrev, header, nextHeader, _i, _len, _ref, _ref1, _ref2,
+      var currentHeader, delta, header, nextHeader, _i, _len, _ref, _ref1, _ref2,
         _this = this;
       if ((this.sticky != null) && this.headers.length > this.sticky.i + 1) {
         nextHeader = this.headers[this.sticky.i + 1];
@@ -140,21 +140,17 @@
         return this.sticky = void 0;
       } else if (currentHeader !== this.sticky) {
         if (this.hidden) {
+          currentHeader.$el.css('color', this.headerBackground);
           this.$sticky.css('-webkit-transform', 'none');
           this.hidden = false;
         } else {
-          deltaPrev = this.y + ((_ref2 = this.sticky) != null ? _ref2.y : void 0);
-          if (deltaPrev > -2) {
-            if (!this.animating) {
-              this._setStickyText(currentHeader != null ? currentHeader.text : void 0);
-              if (this.sticky != null) {
-                this.sticky.$el.css('color', this.headerColor);
-              }
-            }
-          }
+          currentHeader.$el.css('color', this.headerBackground);
+          this._setStickyText(currentHeader != null ? currentHeader.text : void 0);
         }
-        this.sticky = currentHeader;
-        return this.sticky.$el.css('color', this.headerBackground);
+        if ((_ref2 = this.sticky) != null) {
+          _ref2.$el.css('color', this.headerColor);
+        }
+        return this.sticky = currentHeader;
       }
     };
 
