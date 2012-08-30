@@ -11,6 +11,8 @@
 
     iScrollFloatingHeaders.prototype.SCROLL_TO_ELEMENT_OFFSET = 0;
 
+    iScrollFloatingHeaders.prototype.PIXEL_OVERLAP = 1;
+
     iScrollFloatingHeaders.prototype.y = void 0;
 
     iScrollFloatingHeaders.prototype.scrolling = false;
@@ -26,9 +28,9 @@
     function iScrollFloatingHeaders(el) {
       var _this = this;
       this.el = el;
-      this._onScroll = __bind(this._onScroll, this);
-
       this._onScrollEnd = __bind(this._onScrollEnd, this);
+
+      this._onScroll = __bind(this._onScroll, this);
 
       this._onScrollStart = __bind(this._onScrollStart, this);
 
@@ -64,21 +66,32 @@
         onScrollStart: this._onScrollStart,
         onScrollEnd: this._onScrollEnd
       });
-      this._updateHeaders();
+      this._updateFloatingHeader();
       this._enableQuickScroll();
     }
 
     iScrollFloatingHeaders.prototype._onScrollStart = function() {
+      this._updateFloatingHeader();
       if (!this.scrolling) {
         this.scrolling = true;
         return this._onScroll();
       }
     };
 
+    iScrollFloatingHeaders.prototype._onScroll = function() {
+      if (this.scrolling) {
+        setTimeout(this._onScroll, 0);
+      }
+      if (this.iscroll.y !== this.y) {
+        this.y = this.iscroll.y;
+        return this._updateFloatingHeader();
+      }
+    };
+
     iScrollFloatingHeaders.prototype._onScrollEnd = function() {
       var _ref;
       this.scrolling = false;
-      this._onScroll();
+      this._updateFloatingHeader();
       return this._setStickyText((_ref = this.sticky) != null ? _ref.text : void 0);
     };
 
@@ -91,66 +104,61 @@
       return this.$el.append(this.$sticky);
     };
 
-    iScrollFloatingHeaders.prototype._updateHeaders = function() {
-      var currentHeader, delta, header, nextHeader, _i, _len, _ref, _ref1, _ref2,
+    iScrollFloatingHeaders.prototype._updateFloatingHeader = function() {
+      var currentHeader, delta, header, nextHeader, prevHeader, yOffset, _i, _len, _ref, _ref1, _ref2,
         _this = this;
-      if ((this.sticky != null) && this.headers.length > this.sticky.i + 1) {
-        nextHeader = this.headers[this.sticky.i + 1];
-        delta = nextHeader.y + this.y;
-        if (delta > 0 && delta <= this.headerHeight) {
-          if (!this.animating) {
-            this.animating = true;
-          }
-          nextHeader.$el.css('color', this.headerColor);
-          this.$sticky.css('-webkit-transform', 'translate3d(0, -' + (this.headerHeight - delta - 1) + 'px, 0)');
-          if (delta <= this.headerHeight * 0.25) {
-            if (this.iscroll.dirY > 0) {
-              this._setStickyText(nextHeader.text);
-            } else if (this.iscroll.dirY < 0) {
-              this._setStickyText(this.sticky.text);
-            }
-          }
-        } else {
-          if (this.animating) {
-            this.$sticky.css('-webkit-transform', 'none');
-            this.animating = false;
-          }
-        }
-      }
       currentHeader = null;
       _ref = this.headers;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         header = _ref[_i];
-        if (header.y + this.y < 0) {
+        if (header.y + this.y <= 0) {
           currentHeader = header;
         }
       }
       if (typeof this.y === "undefined" || currentHeader === null) {
-        if ((_ref1 = this.headers[0]) != null) {
-          _ref1.$el.css('color', this.headerColor);
+        this._setStickyText((_ref1 = this.headers[0]) != null ? _ref1.text : void 0);
+        if ((_ref2 = this.headers[0]) != null) {
+          _ref2.$el.css('-webkit-transform', 'translate3d(0, 0, 0)');
         }
-        setTimeout(function() {
-          var _ref2;
-          if (_this.hidden) {
-            _this.$sticky.css('-webkit-transform', 'translate3d(0, -1000px, 0)');
-            return _this._setStickyText((_ref2 = _this.headers[0]) != null ? _ref2.text : void 0);
-          }
-        }, 10);
+        this.$sticky.css('-webkit-transform', 'translate3d(0, -1000px, 0)');
         this.hidden = true;
-        return this.sticky = void 0;
+        this.sticky = void 0;
       } else if (currentHeader !== this.sticky) {
-        if (this.hidden) {
-          currentHeader.$el.css('color', this.headerBackground);
-          this.$sticky.css('-webkit-transform', 'none');
-          this.hidden = false;
-        } else {
-          currentHeader.$el.css('color', this.headerBackground);
+        prevHeader = this.sticky;
+        this.sticky = currentHeader;
+        if (this.hidden || this.iscroll.dirY > 0) {
+          if (this.hidden) {
+            this.hidden = false;
+          }
           this._setStickyText(currentHeader != null ? currentHeader.text : void 0);
+          setTimeout(function() {
+            currentHeader.$el.css('-webkit-transform', 'translate3d(100%, 0, 0)');
+            return _this.$sticky.css('-webkit-transform', 'translate3d(0, 0, 0)');
+          }, 0);
+        } else if (this.iscroll.dirY < 0) {
+          if (prevHeader != null) {
+            prevHeader.$el.css('-webkit-transform', 'translate3d(0, 0, 0)');
+          }
+          this._setStickyText(currentHeader != null ? currentHeader.text : void 0);
+        } else {
+
         }
-        if ((_ref2 = this.sticky) != null) {
-          _ref2.$el.css('color', this.headerColor);
+      }
+      if ((this.sticky != null) && this.headers.length > this.sticky.i + 1) {
+        nextHeader = this.headers[this.sticky.i + 1];
+        delta = nextHeader.y + this.y;
+        if (delta > 0 && delta < this.headerHeight) {
+          if (!this.animating) {
+            this.animating = true;
+          }
+          yOffset = this.headerHeight - delta - this.PIXEL_OVERLAP;
+          return this.$sticky.css('-webkit-transform', 'translate3d(0, -' + yOffset + 'px, 0)');
+        } else if (this.animating) {
+          this.animating = false;
+          if (this.iscroll.dirY < 0) {
+            return this.$sticky.css('-webkit-transform', 'translate3d(0, 0, 0)');
+          }
         }
-        return this.sticky = currentHeader;
       }
     };
 
@@ -161,16 +169,6 @@
           _this.$sticky.text(text);
           return _this.stickyText = text;
         }, 0);
-      }
-    };
-
-    iScrollFloatingHeaders.prototype._onScroll = function() {
-      if (this.scrolling) {
-        requestAnimationFrame(this._onScroll, 0);
-      }
-      if (this.iscroll.y !== this.y) {
-        this.y = this.iscroll.y;
-        return this._updateHeaders();
       }
     };
 
@@ -185,6 +183,7 @@
         percentage = (e.touches[0].pageY - _this.quickscroll.offset().top) / _this.quickscroll.height();
         percentage = Math.min(1, Math.max(percentage, 0));
         scrollPos = -_this.scrollHeight * percentage;
+        _this.iscroll.dirY = 0;
         _this._onScrollStart();
         return _this.iscroll.scrollTo(0, scrollPos, 0);
       });

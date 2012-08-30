@@ -4,6 +4,7 @@ class root.iScrollFloatingHeaders
 
 	AUTO_SCROLL_SPEED: 500
 	SCROLL_TO_ELEMENT_OFFSET: 0
+	PIXEL_OVERLAP: 1 #section headers - floating header overlap to prevent animation gaps
 		
 	y: undefined
 
@@ -50,20 +51,29 @@ class root.iScrollFloatingHeaders
 			onScrollEnd:   @_onScrollEnd
 		)
 
-		@_updateHeaders()
+		@_updateFloatingHeader()
 		@_enableQuickScroll()
 	
 
 	_onScrollStart: =>
+		@_updateFloatingHeader()
 		unless @scrolling
 			@scrolling = true
 			@_onScroll()
 
 
+	_onScroll: =>
+		setTimeout(@_onScroll, 0) if @scrolling
+		unless @iscroll.y is @y
+			@y = @iscroll.y
+			@_updateFloatingHeader()
+			
+
 	_onScrollEnd: =>
 		@scrolling = false
-		@_onScroll()
-		@_setStickyText( @sticky?.text ) # one final update to be sure
+		# one final update to be sure we got a solid state
+		@_updateFloatingHeader()
+		@_setStickyText( @sticky?.text )
 
 
 	_findHeaders: ->
@@ -77,77 +87,63 @@ class root.iScrollFloatingHeaders
 
 
 	# positions the sticky header and makes sure it shows correct text
-	_updateHeaders: ->
-		if @sticky? and @headers.length > @sticky.i+1
-			nextHeader = @headers[@sticky.i+1]
-			delta = nextHeader.y + @y
-
-			if delta > 0 and delta <= @headerHeight
-				@animating = true unless @animating
-				
-				nextHeader.$el.css('color', @headerColor)
-				@$sticky.css('-webkit-transform', 'translate3d(0, -'+(@headerHeight-delta-1)+'px, 0)')
-				
-				if delta <= @headerHeight * 0.25
-					if @iscroll.dirY > 0
-						@_setStickyText( nextHeader.text )
-					else if @iscroll.dirY < 0
-						@_setStickyText( @sticky.text )
-				
-			else
-				if @animating
-					@$sticky.css('-webkit-transform', 'none')
-					@animating = false
-
+	_updateFloatingHeader: ->
+		# find current section heaer
 		currentHeader = null
 		for header in @headers
-			currentHeader = header if header.y + @y < 0
-		
+			currentHeader = header if header.y + @y <= 0
+
+		# handle negative scroll
 		if typeof @y is "undefined" or currentHeader is null
-			@headers[0]?.$el.css('color', @headerColor)
-			setTimeout( =>
-				if @hidden
-					#@$sticky.css('visibility', 'hidden')
-					@$sticky.css('-webkit-transform', 'translate3d(0, -1000px, 0)')
-					@_setStickyText( @headers[0]?.text )
-			, 10)
+			@_setStickyText( @headers[0]?.text )
+			@headers[0]?.$el.css('-webkit-transform', 'translate3d(0, 0, 0)')
+			@$sticky.css('-webkit-transform', 'translate3d(0, -1000px, 0)')
 			@hidden = true
 			@sticky = undefined
 
-		else if currentHeader isnt @sticky 
-			
-			if @hidden
-				#@$sticky.css('visibility', 'visible')
-				currentHeader.$el.css('color', @headerBackground)
-				@$sticky.css('-webkit-transform', 'none')
-				@hidden = false
-			else
-				currentHeader.$el.css('color', @headerBackground)
-				#deltaPrev = @y + @sticky?.y
-				#if deltaPrev > -2
-				#	unless @animating
-				@_setStickyText(currentHeader?.text)
-
-			@sticky?.$el.css('color', @headerColor)
+		# switch to new floating header
+		else if currentHeader isnt @sticky 		
+			prevHeader = @sticky
 			@sticky = currentHeader
-			
-			
 
-	# caches updates to the DOM
+			if @hidden or @iscroll.dirY > 0 # scrolling down
+				@hidden = false if @hidden
+				@_setStickyText(currentHeader?.text)
+				setTimeout( =>
+					currentHeader.$el.css('-webkit-transform', 'translate3d(100%, 0, 0)')
+					@$sticky.css('-webkit-transform', 'translate3d(0, 0, 0)')
+				, 0)
+			else if @iscroll.dirY < 0 # scrolling uo
+				prevHeader?.$el.css('-webkit-transform', 'translate3d(0, 0, 0)')
+				@_setStickyText(currentHeader?.text)
+			else
+				# quick scroll without direction
+
+			# FIND WAY TO SHOW HIDDEN HEADERS AFTER BOUNCEBACK AT BOTTOM
+			#@$headers.not(@sticky?.$el).each( (i, item) ->
+			#	$(item).css('-webkit-transform', 'translate3d(0, 0, 0)')
+			#)
+		
+		# update animation if applicable
+		if @sticky? and @headers.length > @sticky.i+1
+			nextHeader = @headers[@sticky.i+1]
+			delta = nextHeader.y + @y
+			if delta > 0 and delta < @headerHeight
+				@animating = true unless @animating
+				yOffset = @headerHeight - delta - @PIXEL_OVERLAP
+				@$sticky.css('-webkit-transform', 'translate3d(0, -' + yOffset + 'px, 0)')
+			else if @animating
+				@animating = false
+				@$sticky.css('-webkit-transform', 'translate3d(0, 0, 0)') if @iscroll.dirY < 0
+	
+
+	# cache updates to the DOM
 	_setStickyText: (text) ->
 		unless @stickyText is text
 			setTimeout( =>
 				@$sticky.text( text )
 				@stickyText = text
 			, 0)
-
-
-	_onScroll: =>
-		requestAnimationFrame(@_onScroll, 0) if @scrolling
-		unless @iscroll.y is @y
-			@y = @iscroll.y
-			@_updateHeaders()
-		
 
 
 	_enableQuickScroll: ->
@@ -159,6 +155,7 @@ class root.iScrollFloatingHeaders
 			percentage = (e.touches[0].pageY - @quickscroll.offset().top) / @quickscroll.height()
 			percentage = Math.min(1, Math.max(percentage, 0))
 			scrollPos = - @scrollHeight * percentage
+			@iscroll.dirY = 0
 			@_onScrollStart() #not triggered by default by scrollTo()
 			@iscroll.scrollTo(0, scrollPos, 0)
 		)

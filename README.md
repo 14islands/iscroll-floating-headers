@@ -65,4 +65,8 @@ Requires
 --------
 iScroll 4.2.2
 Zepto.js 1.0rc1
-requestAnimationFrame
+
+Known bugs
+----------
+* Headers disapear after scroll momentum bounce-back at bottom
+* Quickscroll doesn't update floating headers correctly
