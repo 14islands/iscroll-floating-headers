@@ -147,7 +147,7 @@ class root.iScrollFloatingHeaders
 
 
 	_enableQuickScroll: ->
-		@quickscroll = $('<sidebar>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Å Ä Ö</sidebar>')
+		@quickscroll = $('<sidebar>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</sidebar>')
 		@$el.append(@quickscroll)
 		@quickscroll.on('touchmove', (e) =>
 			e.stopPropagation()

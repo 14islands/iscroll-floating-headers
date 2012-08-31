@@ -7,16 +7,17 @@
 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min.js"></script>
 	<script src="https://raw.github.com/cubiq/iscroll/master/src/iscroll.js"></script>
-	<script src="https://raw.github.com/gist/1579671/7f515ade253afbc860dac1f84e21998d54359d79/rAF.js"></script>
 
 	<style>
 		html, body {
 			height: 100%;
-			font-family: Helvetica Neue;
 			margin: 0;
 			padding: 0;
 			font-size: 16px;
 			-webkit-tap-highlight-color: rgba(0,0,0,0);
+
+			font-family: "Helvetica Neue",HelveticaNeue,"Helvetica-Neue",Helvetica,"BBAlpha Sans",sans-serif;
+			font-weight: normal;
 		}
 	</style>
 
@@ -26,7 +27,6 @@
 		$(function () {
 		  var scrollEl = document.getElementById('mylist');
 		  new iScrollFloatingHeaders(scrollEl);
-		   
 		});  
 	</script>
 

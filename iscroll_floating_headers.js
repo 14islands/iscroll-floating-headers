@@ -174,7 +174,7 @@
 
     iScrollFloatingHeaders.prototype._enableQuickScroll = function() {
       var _this = this;
-      this.quickscroll = $('<sidebar>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Å Ä Ö</sidebar>');
+      this.quickscroll = $('<sidebar>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</sidebar>');
       this.$el.append(this.quickscroll);
       return this.quickscroll.on('touchmove', function(e) {
         var percentage, scrollPos;
