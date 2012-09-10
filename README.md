@@ -30,10 +30,10 @@ The library is tested on the following devices and mobile browsers:
  * Galaxy Tab 10.1 (Honeycomb)
 
 
-# Usage
+## Usage
 Include `iscroll-floating-headers.js` after `iscroll.js` in your JavaScript bundle or on your HTML page.
 
-## HTML
+### HTML
 Create a normal HTML list for your content and wrap it in a container. 
 
 Add the style class "i4-ui-list" to the scroll container to enable the default style. The default style assumes you have an unordered list.
@@ -75,7 +75,7 @@ Add `<header> elements in your list where you want floating headers.
 </div>
 ```
 
-## Javascript
+### Javascript
 Instantiate the list and pass in the scroll container DOM element. The first element in the container will be scrolled - this should be your list.
 
 ```javascript
@@ -86,13 +86,13 @@ That's it, no fancy configuration, it just works.
 _If you haven't used iScroll before, consider reading the "Getting Started" section of the [iScroll documentation](http://cubiq.org/iscroll-4)_
 
 
-# Requirements
+## Requirements
 There's a hard dependency on iScroll. It has currently only been tested with the latest stable version of Zepto.
 * iScroll 4.2.2
 * Zepto.js 1.0rc1
 
 
-# API
+## API
 The list has a number of useful public methods:
 * `refresh()`
 Must be called whenever the content length changes.
@@ -105,12 +105,12 @@ Animate a scroll to the specified list element with an optional delay before scr
 _Differs from the standard iScroll function in that it will try to scroll the element into the center of the viewport._
 
 
-# Known bugs currently being worked on
+## Known bugs currently being worked on
 * The last header may disapear in some scenarios after scroll momentum bounce-back at bottom of list. 
 * Quickscroll doesn't update floating headers correctly - not currently in use.
 
 
-# Implementation details
+## Implementation details
 We use iScroll since the native `-webkit-overflow-scroll: touch;` scrolling on iOS5 only updates the Y-pos while a finger is touching the screen, thus making it impossible to position floating headers during a scroll momentum/bounce-back. Any ideas on how to make this work using just native scrolling are more than welcome!
 
 Licenced under the MIT licence. We welcome comments, feedback and suggestions. Please feel free to raise an issue or pull request. Enjoy!
