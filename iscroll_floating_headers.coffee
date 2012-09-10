@@ -176,10 +176,10 @@ class root.iScrollFloatingHeaders
 		, delay)
 
 
-	scrollToTop: ->
-		@$sticky.css('visibility', 'hidden')
-		@scrollTo(0)
-
+	scrollToTop: (delay = 0) ->
+		setTimeout( =>
+			@scrollTo(0)
+		, delay)
 
 	# scroll element to middle of screen if possible
 	scrollToElement: (el, delay = 0) ->
