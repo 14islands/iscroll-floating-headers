@@ -7,6 +7,11 @@ Our goal was to get as close as possible to the native feel of the UITableView's
 Floating Headers for iScroll is developed by [14islands](http://14islands.com).
 
 
+## Demo
+Yea yea, we know, you won't just take our word for it. 
+[Check out the demo on your mobile device](http://jsbin.com/iscroll-floating-headers/14)
+
+
 ## Compability and Device Support
 The library is tested on the following devices and mobile browsers:
 
