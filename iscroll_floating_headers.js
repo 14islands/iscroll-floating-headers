@@ -210,9 +210,14 @@
       }, delay);
     };
 
-    iScrollFloatingHeaders.prototype.scrollToTop = function() {
-      this.$sticky.css('visibility', 'hidden');
-      return this.scrollTo(0);
+    iScrollFloatingHeaders.prototype.scrollToTop = function(delay) {
+      var _this = this;
+      if (delay == null) {
+        delay = 0;
+      }
+      return setTimeout(function() {
+        return _this.scrollTo(0);
+      }, delay);
     };
 
     iScrollFloatingHeaders.prototype.scrollToElement = function(el, delay) {
