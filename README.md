@@ -38,7 +38,7 @@ Create a normal HTML list for your content and wrap it in a container.
 
 Add the style class "i4-ui-list" to the scroll container to enable the default style. The default style assumes you have an unordered list.
 
-Add <header> elements in your list where you want floating headers.
+Add `<header> elements in your list where you want floating headers.
 
 ```html
 <div id="myList" class="i4-ui-list">
@@ -87,7 +87,7 @@ _If you haven't used iScroll before, consider reading the "Getting Started" sect
 
 
 # Requirements
-There's a hard dependency on iScroll, and it has currently only been tested with Zepto.
+There's a hard dependency on iScroll. It has currently only been tested with the latest stable version of Zepto.
 * iScroll 4.2.2
 * Zepto.js 1.0rc1
 
@@ -102,12 +102,12 @@ Animate a scroll to the specified Y-position with an optional delay before scrol
 Animate a scroll to the top of the list with an optional delay before scroll occurs.
 * `scrollToElement(el, delay = 0)`
 Animate a scroll to the specified list element with an optional delay before scroll occurs.
-_Differs from the standard iScroll function in that it will try to scroll the element into the center of the viewport.
+_Differs from the standard iScroll function in that it will try to scroll the element into the center of the viewport._
 
 
-# Known bugs
-* The last header may disapear in some scenarios after scroll momentum bounce-back at bottom of list
-* Quickscroll doesn't update floating headers correctly - not currently in use
+# Known bugs currently being worked on
+* The last header may disapear in some scenarios after scroll momentum bounce-back at bottom of list. 
+* Quickscroll doesn't update floating headers correctly - not currently in use.
 
 
 # Implementation details
