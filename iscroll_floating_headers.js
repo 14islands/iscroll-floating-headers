@@ -67,7 +67,6 @@
         onScrollEnd: this._onScrollEnd
       });
       this._updateFloatingHeader();
-      this._enableQuickScroll();
     }
 
     iScrollFloatingHeaders.prototype._onScrollStart = function() {

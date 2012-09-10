@@ -52,7 +52,7 @@ class root.iScrollFloatingHeaders
 		)
 
 		@_updateFloatingHeader()
-		@_enableQuickScroll()
+		#@_enableQuickScroll()
 	
 
 	_onScrollStart: =>
