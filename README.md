@@ -41,9 +41,9 @@ Include `iscroll-floating-headers.js` after `iscroll.js` in your JavaScript bund
 ### HTML
 Create a normal HTML list for your content and wrap it in a container. 
 
-Add the style class "i4-ui-list" to the scroll container to enable the default style. The default style assumes you have an unordered list.
+Add the style class `i4-ui-list` to the scroll container to enable the default style. The default style assumes you have an unordered list.
 
-Add `<header> elements in your list where you want floating headers.
+Add `<header>` elements in your list where you want floating headers.
 
 ```html
 <div id="myList" class="i4-ui-list">
