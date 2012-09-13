@@ -2,7 +2,7 @@
 
 A fast glitch-free implementation of floating / sticky headers for iScroll. 
 
-Our goal was to get as close as possible to the native feel of the UITableView's floating headers using HTML5.
+Our goal was to get as close as possible to the native feel of the UITableView's floating headers using HTML5 - and we think we've done a really good job!
 
 
 ## Demo
