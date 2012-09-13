@@ -93,6 +93,7 @@ _If you haven't used iScroll before, consider reading the "Getting Started" sect
 There's a hard dependency on iScroll. It has currently only been tested with the latest stable version of Zepto.
 * iScroll 4.2.2
 * Zepto.js 1.0rc1
+
 Please let us know if you successfully use older versions of the above libraries.
 
 ## API
