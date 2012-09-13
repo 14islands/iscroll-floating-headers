@@ -93,7 +93,7 @@ _If you haven't used iScroll before, consider reading the "Getting Started" sect
 There's a hard dependency on iScroll. It has currently only been tested with the latest stable version of Zepto.
 * iScroll 4.2.2
 * Zepto.js 1.0rc1
-
+Please let us know if you successfully use older versions of the above libraries.
 
 ## API
 The list has a number of useful public methods:
@@ -115,6 +115,6 @@ _Differs from the standard iScroll function in that it will try to scroll the el
 ## Implementation details
 We use iScroll since the native `-webkit-overflow-scroll: touch;` scrolling on iOS5 only updates the Y-pos while a finger is touching the screen, thus making it impossible to position floating headers during a scroll momentum/bounce-back. Any ideas on how to make this work using just native scrolling are more than welcome!
 
-Floating Headers for iScroll is developed by [14islands](http://14islands.com) (Twitter: [@islands](https://twitter.com/14islands)). 
+Floating Headers for iScroll is developed by [14islands](http://14islands.com) (Twitter: [@14islands](https://twitter.com/14islands)). 
 
 Licenced under the MIT licence. We welcome comments, feedback and suggestions. Please feel free to raise an issue or pull request. Enjoy!
