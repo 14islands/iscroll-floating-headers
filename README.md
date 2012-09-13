@@ -34,7 +34,8 @@ We test on the following devices and mobile browsers:
 
 
 ## Usage
-Include `iscroll-floating-headers.js` after `iscroll.js` in your JavaScript bundle or on your HTML page.
+Include `iscroll_floating_headers.js` after `iscroll.js` in your JavaScript bundle or on your HTML page.
+Include `iscroll_floating_headers.css` in your HTML `<head>` to enable the default skin used in the demo.
 
 ### HTML
 Create a normal HTML list for your content and wrap it in a container. 
