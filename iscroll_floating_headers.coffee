@@ -2,9 +2,9 @@ root = exports ? this
 
 class root.iScrollFloatingHeaders
 
-	AUTO_SCROLL_SPEED: 500
-	SCROLL_TO_ELEMENT_OFFSET: 0
-	PIXEL_OVERLAP: 1 #section headers - floating header overlap to prevent animation gaps
+	AUTO_SCROLL_SPEED: 500 # scrollTo animation speed
+	SCROLL_TO_ELEMENT_OFFSET: 0.33 # % of screen to position element at
+	PIXEL_OVERLAP: 1 # floating header pixel overlap to prevent animation gaps
 		
 	y: undefined
 
@@ -18,7 +18,7 @@ class root.iScrollFloatingHeaders
 	constructor: (@el) ->
 		@$el = $(@el)
 		@_findHeaders()
-		@SCROLL_TO_ELEMENT_OFFSET = @$el.height() * 0.33
+		@scrollToElementOffset = @$el.height() * @SCROLL_TO_ELEMENT_OFFSET
 		@scrollHeight = @$el.children(':first-child').height() - @$el.height()
 
 		# build list
@@ -65,6 +65,7 @@ class root.iScrollFloatingHeaders
 	_onScroll: =>
 		setTimeout(@_onScroll, 0) if @scrolling
 		unless @iscroll.y is @y
+			@lastY = @y
 			@y = @iscroll.y
 			@_updateFloatingHeader()
 			
@@ -106,23 +107,17 @@ class root.iScrollFloatingHeaders
 			prevHeader = @sticky
 			@sticky = currentHeader
 
-			if @hidden or @iscroll.dirY > 0 # scrolling down
+			if @hidden or @_scrollingDown()
 				@hidden = false if @hidden
-				@_setStickyText(currentHeader?.text)
+				@_setStickyText(currentHeader?.text)				
 				setTimeout( =>
 					currentHeader.$el.css('-webkit-transform', 'translate3d(100%, 0, 0)')
 					@$sticky.css('-webkit-transform', 'translate3d(0, 0, 0)')
 				, 0)
-			else if @iscroll.dirY < 0 # scrolling uo
+			else if @_scrollingUp()
 				prevHeader?.$el.css('-webkit-transform', 'translate3d(0, 0, 0)')
 				@_setStickyText(currentHeader?.text)
-			else
-				# quick scroll without direction
-
-			# FIND WAY TO SHOW HIDDEN HEADERS AFTER BOUNCEBACK AT BOTTOM
-			#@$headers.not(@sticky?.$el).each( (i, item) ->
-			#	$(item).css('-webkit-transform', 'translate3d(0, 0, 0)')
-			#)
+			#else handle quick scroll without direction?
 		
 		# update animation if applicable
 		if @sticky? and @headers.length > @sticky.i+1
@@ -134,8 +129,16 @@ class root.iScrollFloatingHeaders
 				@$sticky.css('-webkit-transform', 'translate3d(0, -' + yOffset + 'px, 0)')
 			else if @animating
 				@animating = false
-				@$sticky.css('-webkit-transform', 'translate3d(0, 0, 0)') if @iscroll.dirY < 0
+				@$sticky.css('-webkit-transform', 'translate3d(0, 0, 0)') if @_scrollingUp() #@iscroll.dirY < 0
 	
+
+	_scrollingDown: ->
+		@iscroll.dirY > 0 and @y < @lastY #avoid bounce back at bottom
+
+
+	_scrollingUp: ->
+		@iscroll.dirY < 0 or @y > @lastY #detect bounce back at bottom
+
 
 	# cache updates to the DOM
 	_setStickyText: (text) ->
@@ -188,13 +191,13 @@ class root.iScrollFloatingHeaders
 			@iscroll.scrollToElement(el, 0)
 			setTimeout( =>
 				# check if enough space at top, otherwise only scroll to top
-				if @iscroll.y + @SCROLL_TO_ELEMENT_OFFSET > 0
+				if @iscroll.y + @scrollToElementOffset > 0
 					@_onScrollStart() #not triggered by default by scrollTo()
 					@iscroll.scrollTo(0, 0, @AUTO_SCROLL_SPEED)
 				# check if scrolled to bottom - if so stay there
 				else if @iscroll.y + @scrollHeight > 0
 					@_onScrollStart() #not triggered by default by scrollTo()
-					@iscroll.scrollTo(0, @iscroll.y + @SCROLL_TO_ELEMENT_OFFSET, @AUTO_SCROLL_SPEED)
+					@iscroll.scrollTo(0, @iscroll.y + @scrollToElementOffset, @AUTO_SCROLL_SPEED)
 			, delay)
 		, 0)
 		

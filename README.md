@@ -4,22 +4,19 @@ A fast glitch-free implementation of floating / sticky headers for iScroll.
 
 Our goal was to get as close as possible to the native feel of the UITableView's floating headers using HTML5.
 
-Floating Headers for iScroll is developed by [14islands](http://14islands.com).
-
 
 ## Demo
-Yea yea, we know, you won't just take our word for it. 
-[Check out the demo on your mobile device](http://jsbin.com/iscroll-floating-headers/14)
+Don't just take our word for it, [check out the DEMO on your mobile device](http://jsbin.com/iscroll-floating-headers/14)
 
 
 ## Compability and Device Support
-The library is tested on the following devices and mobile browsers:
+We test on the following devices and mobile browsers:
 
 ### Mobile browsers:
  * Mobile Safari on iOS 4 and upwards
  * Chrome on iOS 5 and upwards
  * Chrome on Android (ICS)
- * Android Browser since Honeycomb
+ * Android Browser since Gingerbread
 
 ### A-grade devices:
  * iPhone 4GS (iOS5)
@@ -28,7 +25,8 @@ The library is tested on the following devices and mobile browsers:
  * iPad 3     (iOS5)
  * iPad 2     (iOS5)
  * Galaxy S3  (Ice Cream Sandwich)
- * Galaxy S2  (Ice Cream Sandwich)
+ * Galaxy S2  (Gingerbread)
+ * NEXUS S    (Jelly Bean)
 
 ### B grade devices (works but device performance is bad):
  * iPhone 3G       (iOS4)
@@ -41,7 +39,7 @@ Include `iscroll-floating-headers.js` after `iscroll.js` in your JavaScript bund
 ### HTML
 Create a normal HTML list for your content and wrap it in a container. 
 
-Add the style class `i4-ui-list` to the scroll container to enable the default style. The default style assumes you have an unordered list.
+Add the style class `i4-ui-list to the scroll container to enable the default style. The default style assumes you have an unordered list.
 
 Add `<header>` elements in your list where you want floating headers.
 
@@ -110,12 +108,13 @@ Animate a scroll to the specified list element with an optional delay before scr
 _Differs from the standard iScroll function in that it will try to scroll the element into the center of the viewport._
 
 
-## Known bugs currently being worked on
-* The last header may disapear in some scenarios after scroll momentum bounce-back at bottom of list. 
-* Quickscroll doesn't update floating headers correctly - not currently in use.
+## Planned features
+* Quickscroll - an index that appears as a bar on the right hand side of the table (for example, "a" through "z"). You can touch a particular label to jump to the target section.
 
 
 ## Implementation details
 We use iScroll since the native `-webkit-overflow-scroll: touch;` scrolling on iOS5 only updates the Y-pos while a finger is touching the screen, thus making it impossible to position floating headers during a scroll momentum/bounce-back. Any ideas on how to make this work using just native scrolling are more than welcome!
+
+Floating Headers for iScroll is developed by [14islands](http://14islands.com) (Twitter: [@islands](https://twitter.com/14islands)). 
 
 Licenced under the MIT licence. We welcome comments, feedback and suggestions. Please feel free to raise an issue or pull request. Enjoy!
