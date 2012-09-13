@@ -1,45 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <title>Floating Headers for iScroll by 14islands</title>
 
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <title>Floating Headers for iScroll by 14islands</title>
   </head>
-
   <body>
-    <header>
-      <div class="inner">
+    <div class="wrapper">
+      <header>
         <h1>Floating Headers for iScroll</h1>
-        <h2>A fast glitch-free implementation of floating / sticky headers for iScroll</h2>
-        <a href="https://github.com/14islands/iscroll-floating-headers" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+        <p>A fast glitch-free implementation of floating / sticky headers for iScroll</p>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <p>Our goal was to get as close as possible to the native feel of the UITableView's floating headers using HTML5.</p>
+        <p class="view"><a href="https://github.com/14islands/iscroll-floating-headers">View the Project on GitHub <small>14islands/iscroll-floating-headers</small></a></p>
 
-<p>Floating Headers for iScroll is developed by <a href="http://14islands.com">14islands</a>.</p>
+
+        <ul>
+          <li><a href="https://github.com/14islands/iscroll-floating-headers/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/14islands/iscroll-floating-headers/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/14islands/iscroll-floating-headers">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>Our goal was to get as close as possible to the native feel of the UITableView's floating headers using HTML5.</p>
 
 <h2>Demo</h2>
 
-<p>Yea yea, we know, you won't just take our word for it. 
-<a href="http://jsbin.com/iscroll-floating-headers/14">Check out the demo on your mobile device</a></p>
+<p>Don't just take our word for it, <a href="http://jsbin.com/iscroll-floating-headers/14">check out the DEMO on your mobile device</a></p>
 
 <h2>Compability and Device Support</h2>
 
-<p>The library is tested on the following devices and mobile browsers:</p>
+<p>We test on the following devices and mobile browsers:</p>
 
 <h3>Mobile browsers:</h3>
 
@@ -47,7 +44,7 @@
 <li>Mobile Safari on iOS 4 and upwards</li>
 <li>Chrome on iOS 5 and upwards</li>
 <li>Chrome on Android (ICS)</li>
-<li>Android Browser since Honeycomb</li>
+<li>Android Browser since Gingerbread</li>
 </ul><h3>A-grade devices:</h3>
 
 <ul>
@@ -57,7 +54,8 @@
 <li>iPad 3     (iOS5)</li>
 <li>iPad 2     (iOS5)</li>
 <li>Galaxy S3  (Ice Cream Sandwich)</li>
-<li>Galaxy S2  (Ice Cream Sandwich)</li>
+<li>Galaxy S2  (Gingerbread)</li>
+<li>NEXUS S    (Jelly Bean)</li>
 </ul><h3>B grade devices (works but device performance is bad):</h3>
 
 <ul>
@@ -71,7 +69,7 @@
 
 <p>Create a normal HTML list for your content and wrap it in a container. </p>
 
-<p>Add the style class <code>i4-ui-list</code> to the scroll container to enable the default style. The default style assumes you have an unordered list.</p>
+<p>Add the style class `i4-ui-list to the scroll container to enable the default style. The default style assumes you have an unordered list.</p>
 
 <p>Add <code>&lt;header&gt;</code> elements in your list where you want floating headers.</p>
 
@@ -127,7 +125,9 @@
 <ul>
 <li>iScroll 4.2.2</li>
 <li>Zepto.js 1.0rc1</li>
-</ul><h2>API</h2>
+</ul><p>Please let us know if you successfully use older versions of the above libraries.</p>
+
+<h2>API</h2>
 
 <p>The list has a number of useful public methods:</p>
 
@@ -146,36 +146,25 @@ Animate a scroll to the top of the list with an optional delay before scroll occ
 Animate a scroll to the specified list element with an optional delay before scroll occurs.
 <em>Differs from the standard iScroll function in that it will try to scroll the element into the center of the viewport.</em>
 </li>
-</ul><h2>Known bugs currently being worked on</h2>
+</ul><h2>Planned features</h2>
 
 <ul>
-<li>The last header may disapear in some scenarios after scroll momentum bounce-back at bottom of list. </li>
-<li>Quickscroll doesn't update floating headers correctly - not currently in use.</li>
+<li>Quickscroll - an index that appears as a bar on the right hand side of the table (for example, "a" through "z"). You can touch a particular label to jump to the target section.</li>
 </ul><h2>Implementation details</h2>
 
 <p>We use iScroll since the native <code>-webkit-overflow-scroll: touch;</code> scrolling on iOS5 only updates the Y-pos while a finger is touching the screen, thus making it impossible to position floating headers during a scroll momentum/bounce-back. Any ideas on how to make this work using just native scrolling are more than welcome!</p>
 
+<p>Floating Headers for iScroll is developed by <a href="http://14islands.com">14islands</a> (Twitter: <a href="https://twitter.com/14islands">@14islands</a>). </p>
+
 <p>Licenced under the MIT licence. We welcome comments, feedback and suggestions. Please feel free to raise an issue or pull request. Enjoy!</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/14islands/iscroll-floating-headers/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/14islands/iscroll-floating-headers/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/14islands/iscroll-floating-headers"></a> is maintained by <a href="https://github.com/14islands">14islands</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/14islands">14islands</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
-
-            <script type="text/javascript">
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
