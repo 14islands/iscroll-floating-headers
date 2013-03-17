@@ -167,17 +167,18 @@ class root.iScrollFloatingHeaders
 	### Public functions
 	###
 
+	destroy: ->
+		@iscroll.destroy();
+
 	refresh: ->
 		setTimeout( =>
 			@iscroll.refresh()
 		, 0)
 
-
 	scrollTo: (pos, delay = 0) ->
 		setTimeout( =>
 			@iscroll.scrollTo(0, pos, @AUTO_SCROLL_SPEED)
 		, delay)
-
 
 	scrollToTop: (delay = 0) ->
 		setTimeout( =>
