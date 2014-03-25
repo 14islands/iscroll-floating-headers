@@ -6,7 +6,7 @@ Our goal was to get as close as possible to the native feel of the UITableView's
 
 
 ## Demo
-Don't just take our word for it, [check out the DEMO on your mobile device](http://jsbin.com/iscroll-floating-headers/14)
+Don't just take our word for it, [check out the DEMO on your mobile device](http://jsbin.com/iscroll-floating-headers/31)
 
 
 ## Compability and Device Support
